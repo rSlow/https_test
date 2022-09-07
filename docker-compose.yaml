@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  djan:
+    build: ./dj
+    ports:
+      - "8080:8080"
+
+  ng:
+    image: nginx
