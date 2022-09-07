@@ -10,16 +10,18 @@ services:
       - static_files:${DJANGO_STATIC_FOLDER}
       - media_files:${DJANGO_MEDIA_FOLDER}
 
-  ng:
-    build: ./ngi
+  nginx:
+    build: ./nginx
     env_file:
       - ./env/dc.env
     volumes:
       - static_files:${NGINX_STATIC_FOLDER}
       - media_files:${NGINX_MEDIA_FOLDER}
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     ports:
-      - "${OUTER_PORT}:${NGINX_LISTEN_PORT}"
-      - "${OUTER_SSL_PORT}:${NGINX_LISTEN_SSL_PORT}"
+      - "80:80"
+      - "443:443"
 
   certbot:
     image: certbot/certbot
@@ -28,7 +30,8 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot --force-renewal --email redmaxx4@gmail.com -d redslow-services.ru --agree-tos
-
+    depends_on:
+      - nginx
 volumes:
   static_files:
   media_files:
