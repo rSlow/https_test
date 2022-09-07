@@ -29,6 +29,9 @@ ALLOWED_HOSTS = [
     "127.0.0.1"
 ]
 
+for host in os.getenv("ALLOWED_HOSTS", "").split():
+    ALLOWED_HOSTS.append(host)
+
 # Application definition
 
 INSTALLED_APPS = [
