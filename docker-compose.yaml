@@ -3,8 +3,19 @@ version: "3"
 services:
   djan:
     build: ./dj
-    ports:
-      - "8080:8080"
+#    volumes:
+#      - static_files:/usr/app/static
+  #    expose:
+  #      - 8080
+  #    ports:
+  #      - "8080:8080"
 
   ng:
-    image: nginx
+    build: ./ngi
+    ports:
+      - "1337:80"
+
+
+volumes:
+  static_files:
+  media_files:
