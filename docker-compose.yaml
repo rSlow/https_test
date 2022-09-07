@@ -20,6 +20,13 @@ services:
     ports:
       - "${OUTER_PORT}:${NGINX_LISTEN_PORT}"
 
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email redmaxx4@gmail.com -d redslow-services.ru --agree-tos
 
 volumes:
   static_files:
