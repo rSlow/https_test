@@ -17,8 +17,8 @@ services:
     volumes:
       - static_files:${NGINX_STATIC_FOLDER}
       - media_files:${NGINX_MEDIA_FOLDER}
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - certbot_files/conf:/etc/letsencrypt
+      - certbot_files/www:/var/www/certbot
     ports:
       - "80:80"
       - "443:443"
@@ -27,8 +27,8 @@ services:
     image: certbot/certbot
     container_name: certbot
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - certbot_files/conf:/etc/letsencrypt
+      - certbot_files/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot --force-renewal --email redmaxx4@gmail.com -d redslow-services.ru --agree-tos
     depends_on:
       - nginx
@@ -36,3 +36,4 @@ services:
 volumes:
   static_files:
   media_files:
+  certbot_files:
