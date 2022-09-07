@@ -3,17 +3,22 @@ version: "3"
 services:
   djan:
     build: ./dj
-#    volumes:
-#      - static_files:/usr/app/static
-  #    expose:
-  #      - 8080
-  #    ports:
-  #      - "8080:8080"
+    env_file:
+      - ./env/dc.env
+      - ./env/django/dj.env
+    volumes:
+      - static_files:${DJANGO_STATIC_FOLDER}
+      - media_files:${DJANGO_MEDIA_FOLDER}
 
   ng:
     build: ./ngi
+    env_file:
+      - ./env/dc.env
+    volumes:
+      - static_files:${NGINX_STATIC_FOLDER}
+      - media_files:${NGINX_MEDIA_FOLDER}
     ports:
-      - "1337:80"
+      - "${OUTER_PORT}:${NGINX_LISTEN_PORT}"
 
 
 volumes:
