@@ -19,6 +19,7 @@ services:
       - media_files:${NGINX_MEDIA_FOLDER}
     ports:
       - "${OUTER_PORT}:${NGINX_LISTEN_PORT}"
+      - "${OUTER_SSL_PORT}:${NGINX_LISTEN_SSL_PORT}"
 
   certbot:
     image: certbot/certbot
