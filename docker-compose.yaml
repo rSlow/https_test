@@ -29,6 +29,7 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+      - /etc/letsencrypt/:./letsencrypt
     command: certonly --webroot -w /var/www/certbot --force-renewal --email redmaxx4@gmail.com -d redslow-services.ru --agree-tos
     depends_on:
       - nginx
